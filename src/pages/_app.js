@@ -11,15 +11,11 @@ const App = ({ Component, pageProps }) => {
                 <meta name="description" content="Time-Tracking" />
                 <meta name="keywords" content="Time-Tracking" />
                 <meta name="author" content="Phukphoom Taphrae" />
-                <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1.0"
-                />
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             </Head>
 
             <Component {...pageProps} />
         </React.Fragment>
     );
 };
-
 export default App;
