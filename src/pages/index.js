@@ -5,11 +5,9 @@ const HomePage = ({ username, role, name }) => {
         <React.Fragment>
             <NavBar role={role} />
             <div className="flex flex-col w-full h-screen items-center justify-center font-bold text-2xl">
-                <div>
-                    <p>Username : {username}</p>
-                    <p>Role : {role}</p>
-                    <p>Name : {name}</p>
-                </div>
+                <div>Username : {username}</div>
+                <div>Role : {role}</div>
+                <div>Name : {name}</div>
             </div>
         </React.Fragment>
     );

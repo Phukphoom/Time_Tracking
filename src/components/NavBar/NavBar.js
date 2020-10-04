@@ -1,5 +1,5 @@
-import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const NavBar = ({ role }) => {
     const router = useRouter();
@@ -11,7 +11,7 @@ const NavBar = ({ role }) => {
         });
 
         if (response.redirected) {
-            router.replace('/login');
+            router.replace(response.url);
         }
     };
 
