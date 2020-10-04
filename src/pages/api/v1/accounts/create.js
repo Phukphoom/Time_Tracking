@@ -4,12 +4,11 @@ import { openDatabase } from '../../utils/openDatabase';
 import { hashSalt } from '../../utils/config';
 import { authentication } from '../../middlewares';
 
-const createAccountApi = async (req, res, session) => {
+const createAccountApi = async (req, res) => {
     if (req.method === 'POST') {
         if (session.role == 'manager') {
             const data = req.body;
             const hashedPassword = await hash(data.password, hashSalt);
-
             try {
                 const database = await openDatabase();
                 await database.all(
