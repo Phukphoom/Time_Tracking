@@ -13,7 +13,7 @@ const LoginPage = ({}) => {
     const submitHandler = async (event) => {
         event.preventDefault();
 
-        const res = await fetch('/api/v1/login', {
+        const response = await fetch('/api/v1/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,10 +24,10 @@ const LoginPage = ({}) => {
             }),
         });
 
-        if (res.status === 200) {
+        if (response.status == 200) {
             router.push('/');
         }
-        if (res.status === 403) {
+        if (response.status == 403) {
             setShowAlertBoxTop(true);
         }
     };

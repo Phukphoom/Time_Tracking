@@ -1,6 +1,6 @@
 import { CSSTransition } from 'react-transition-group';
 
-const AlertBoxTop = ({ text, className, isShow, onClick }) => {
+const AlertBoxTop = ({ isShow, className, text, onClick }) => {
     return (
         <CSSTransition in={isShow} timeout={300} classNames="alert-box-top" unmountOnExit>
             <div className=" fixed top-0 w-full">

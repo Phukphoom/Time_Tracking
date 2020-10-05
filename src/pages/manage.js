@@ -1,18 +1,16 @@
-import { NavBar, PageFrame } from '../components';
+import { NavBar, PageFrame, AccountManager } from '../components';
 
-const HomePage = ({ username, role, name }) => {
+const ManagePage = ({ role, accounts }) => {
     return (
         <React.Fragment>
             <NavBar role={role} />
             <PageFrame>
-                <div>Username : {username}</div>
-                <div>Role : {role}</div>
-                <div>Name : {name}</div>
+                <AccountManager accounts={accounts} />
             </PageFrame>
         </React.Fragment>
     );
 };
-export default HomePage;
+export default ManagePage;
 
 export const getServerSideProps = async ({ req, res }) => {
     let response;
@@ -30,7 +28,20 @@ export const getServerSideProps = async ({ req, res }) => {
     }
     const session = await response.json();
 
+    response = await fetch('http://localhost:3000/api/v1/accounts', {
+        method: 'GET',
+        headers: req.headers,
+    });
+    if (response.redirected) {
+        res.writeHead(302, { Location: response.url });
+        res.end();
+        return {
+            props: {},
+        };
+    }
+    const accounts = await response.json();
+
     return {
-        props: { username: session.username, role: session.role, name: session.name },
+        props: { role: session.role, accounts: accounts },
     };
 };
