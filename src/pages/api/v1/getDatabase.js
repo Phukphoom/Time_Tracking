@@ -10,8 +10,8 @@ const getDatabaseApi = async (req, res, session) => {
                 const Clocking = await database.all('select * from Clocking');
 
                 res.status(200).send({
-                    Accounts: { ...Accounts },
-                    Clocking: { ...Clocking },
+                    Accounts,
+                    Clocking,
                 });
             } catch (error) {
                 res.status(500).send({ message: error.message });

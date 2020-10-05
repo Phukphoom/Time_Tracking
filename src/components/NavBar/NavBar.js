@@ -17,7 +17,7 @@ const NavBar = ({ role }) => {
 
     const isManager = role == 'manager';
     return (
-        <div className=" fixed top-0 flex flex-cols justify-between items-center w-full h-20 px-32 bg-black">
+        <div className="fixed top-0 flex flex-cols justify-between items-center w-full h-20 px-32 bg-black">
             {isManager && (
                 <div className="flex flex-cols justify-center items-center">
                     <Link href="/">
