@@ -7,9 +7,8 @@ const clockOutApi = async (req, res, session) => {
 
         try {
             const database = await openDatabase();
-            const Accounts = await database.all(`select id from Accounts where username='${session.username}'`);
             await database.all(
-                `insert into Clocking('accountId', 'clockingType',clockingTime) values('${Accounts[0].id}', 'clock-out','${data.clockingTime}')`
+                `insert into Clocking('accountId', 'clockingType',clockingTime) values('${session.id}', 'clock-out','${data.clockingTime}')`
             );
 
             res.status(200).end();

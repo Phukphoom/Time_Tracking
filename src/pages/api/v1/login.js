@@ -32,7 +32,7 @@ const loginApi = async (req, res) => {
                             'Set-Cookie',
                             cookie.serialize('auth', jwt, {
                                 httpOnly: true,
-                                maxAge: 30 * 60,    //Set expire in 30 minute
+                                maxAge: 30 * 60, //Set expire in 30 minute
                                 path: '/',
                             })
                         );

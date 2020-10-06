@@ -3,12 +3,12 @@ import { authentication } from '../../middlewares';
 
 const removeAccountApi = async (req, res, session) => {
     if (req.method === 'POST') {
-        if (session.role == 'manager') {
+        if (session.role == 'admin' || session.role == 'manager') {
             const data = req.body;
 
             try {
                 const database = await openDatabase();
-                await database.all(`delete from Accounts where username='${data.username}'`);
+                await database.all(`delete from Accounts where id='${data.id}'`);
 
                 res.status(200).end();
             } catch (error) {

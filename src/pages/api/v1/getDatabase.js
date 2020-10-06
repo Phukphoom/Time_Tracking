@@ -3,7 +3,7 @@ import { authentication } from '../middlewares';
 
 const getDatabaseApi = async (req, res, session) => {
     if (req.method === 'GET') {
-        if (session.role == 'manager') {
+        if (session.role == 'admin') {
             try {
                 const database = await openDatabase();
                 const Accounts = await database.all('select * from Accounts');
