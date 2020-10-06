@@ -1,7 +1,6 @@
 import Head from 'next/head';
 
 import '../css/tailwind.css';
-import '../css/AlertBoxTop-animation.css';
 
 const App = ({ Component, pageProps }) => {
     return (

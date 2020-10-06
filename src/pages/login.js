@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-
-import { AlertBoxTop } from '../components';
+import Swal from 'sweetalert2';
 
 const LoginPage = ({}) => {
     const router = useRouter();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [showAlertBoxTop, setShowAlertBoxTop] = useState(false);
 
     const submitHandler = async (event) => {
         event.preventDefault();
@@ -28,20 +26,20 @@ const LoginPage = ({}) => {
             router.push('/');
         }
         if (response.status == 403) {
-            setShowAlertBoxTop(true);
+            Swal.fire({
+                icon: 'error',
+                title: 'เกิดข้อผิดพลาด',
+                text: 'ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง!',
+                position: 'center',
+                showConfirmButton: false,
+                timer: 5000,
+                timerProgressBar: true,
+            });
         }
     };
 
     return (
         <div className="w-full flex flex-wrap">
-            <AlertBoxTop
-                isShow={showAlertBoxTop}
-                className="bg-red-500"
-                text="ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง กรุณาลองใหม่อีกครั้ง!"
-                onClick={() => {
-                    setShowAlertBoxTop(false);
-                }}
-            />
             <div className="w-full md:w-1/2 flex flex-col">
                 <div className="flex flex-col justify-center md:justify-start my-auto pt-8 md:pt-0 px-8 md:px-24 lg:px-32">
                     <p className="text-center text-4xl font-bold ">ยินดีต้อนรับเข้าสู่ ระบบลงเวลา</p>
