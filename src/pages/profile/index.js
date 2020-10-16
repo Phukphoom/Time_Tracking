@@ -1,10 +1,25 @@
-import { NavBar, PageFrame, AccountManager } from '../../components';
+import { NavBar, PageFrame } from '../../components';
 
-const ProfilePage = ({ id, role }) => {
+const ProfilePage = ({ username, role, name }) => {
     return (
         <React.Fragment>
-            <NavBar id={id} role={role} />
-            <PageFrame></PageFrame>
+            <NavBar role={role} />
+            <PageFrame>
+                <div className="flex flex-col">
+                    <div className="flex flex-row w-64">
+                        <p className="w-4/12">ชื่อผู้ใช้</p>
+                        <p className="w-8/12">{username}</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <p className="w-4/12">สถานะ</p>
+                        <p className="w-8/12">{role}</p>
+                    </div>
+                    <div className="flex flex-row">
+                        <p className="w-4/12">ชื่อ-นามสกุล</p>
+                        <p className="w-8/12">{name}</p>
+                    </div>
+                </div>
+            </PageFrame>
         </React.Fragment>
     );
 };
@@ -27,6 +42,6 @@ export const getServerSideProps = async ({ req, res }) => {
     const session = await response.json();
 
     return {
-        props: { id: session.id, role: session.role },
+        props: { username: session.username, role: session.role, name: session.name },
     };
 };

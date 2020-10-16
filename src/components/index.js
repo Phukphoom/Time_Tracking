@@ -1,4 +1,5 @@
 export { default as NavBar } from './NavBar/NavBar';
 export { default as PageFrame } from './PageFrame/PageFrame';
-export { default as AccountManager } from './Account/AccountManager';
-export { default as AccountItem } from './Account/AccountItem';
+
+export { default as AccountManager } from './AccountManager/AccountManager';
+export { default as AccountAdderForm } from './AccountAdderForm/AccountAdderForm';

@@ -49,7 +49,7 @@ const LoginPage = ({}) => {
                             <input
                                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none"
                                 name="username"
-                                type="username"
+                                type="text"
                                 value={username}
                                 onChange={(event) => {
                                     setUsername(event.target.value);

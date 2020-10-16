@@ -1,10 +1,10 @@
-import { NavBar, PageFrame, AccountManager } from '../components';
+import { NavBar, PageFrame } from '../../components';
 
-const DashboardPage = ({ id, role }) => {
+const DashboardPage = ({ role }) => {
     return (
         <React.Fragment>
-            <NavBar id={id} role={role} />
-            <PageFrame></PageFrame>
+            <NavBar role={role} />
+            <PageFrame>DashBoard</PageFrame>
         </React.Fragment>
     );
 };
@@ -25,8 +25,15 @@ export const getServerSideProps = async ({ req, res }) => {
         };
     }
     const session = await response.json();
+    if (session.role != 'admin' && session.role != 'manager') {
+        res.writeHead(302, { Location: '/' });
+        res.end();
+        return {
+            props: {},
+        };
+    }
 
     return {
-        props: { id: session.id, role: session.role },
+        props: { role: session.role },
     };
 };

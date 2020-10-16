@@ -27,4 +27,3 @@ const createAccountApi = async (req, res, session) => {
     }
 };
 export default authentication(createAccountApi);
-// export default createAccountApi;
