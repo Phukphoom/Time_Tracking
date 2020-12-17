@@ -1,15 +1,19 @@
+import { hash } from 'bcrypt';
+
 import { openDatabase } from '../../utils/openDatabase';
+import { hashSalt } from '../../utils/config';
 import { authentication } from '../../middlewares';
 
-const updateProfileApi = async (req, res, session) => {
+const changePasswordApi = async (req, res, session) => {
     if (req.method === 'PUT') {
         if (session.role == 'admin' || session.role == 'manager') {
             const data = req.body;
+            const hashedPassword = await hash(data.password, hashSalt);
 
             try {
                 const database = await openDatabase();
                 await database.all(
-                    `update Accounts set role='${data.role}',name='${data.name}' where id='${data.id}'`
+                    `update Accounts set password='${hashedPassword}' where id='${data.id}'`
                 );
 
                 res.status(200).end();
@@ -24,4 +28,4 @@ const updateProfileApi = async (req, res, session) => {
         res.status(400).end();
     }
 };
-export default authentication(updateProfileApi);
+export default authentication(changePasswordApi);

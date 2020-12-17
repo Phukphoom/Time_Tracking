@@ -68,7 +68,7 @@ const AccountAdderForm = ({ accounts }) => {
                     toast: true,
                     position: 'top',
                 });
-                router.reload();
+                router.push('/manage');
             } else {
                 Swal.fire({
                     icon: 'error',
