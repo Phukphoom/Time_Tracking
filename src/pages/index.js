@@ -1,14 +1,10 @@
 import { NavBar, PageFrame } from '../components';
 
-const HomePage = ({ id, username, role, name }) => {
+const HomePage = ({ role }) => {
     return (
         <React.Fragment>
-            <NavBar id={id} role={role} />
-            <PageFrame>
-                <div>Username : {username}</div>
-                <div>Role : {role}</div>
-                <div>Name : {name}</div>
-            </PageFrame>
+            <NavBar role={role} />
+            <PageFrame>Home Page</PageFrame>
         </React.Fragment>
     );
 };
@@ -31,6 +27,6 @@ export const getServerSideProps = async ({ req, res }) => {
     const session = await response.json();
 
     return {
-        props: { id: session.id, username: session.username, role: session.role, name: session.name },
+        props: { role: session.role },
     };
 };

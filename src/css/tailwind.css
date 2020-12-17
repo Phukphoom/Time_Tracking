@@ -4,6 +4,9 @@
 body {
     font-family: 'Kanit', sans-serif;
 }
+::-webkit-scrollbar {
+    display: none;
+}
 
 @tailwind components;
 

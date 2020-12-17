@@ -1,16 +1,16 @@
-import { NavBar, PageFrame, AccountManager } from '../components';
+import { NavBar, PageFrame, AccountAdderForm } from '../../../components';
 
-const ManagePage = ({ id, role, accounts }) => {
+const AddAccountPage = ({ role, accounts }) => {
     return (
         <React.Fragment>
-            <NavBar id={id} role={role} />
+            <NavBar role={role} />
             <PageFrame>
-                <AccountManager clientRole={role} accounts={accounts} />
+                <AccountAdderForm accounts={accounts} />
             </PageFrame>
         </React.Fragment>
     );
 };
-export default ManagePage;
+export default AddAccountPage;
 
 export const getServerSideProps = async ({ req, res }) => {
     let response;
@@ -27,21 +27,21 @@ export const getServerSideProps = async ({ req, res }) => {
         };
     }
     const session = await response.json();
-
-    response = await fetch('http://localhost:3000/api/v1/accounts', {
-        method: 'GET',
-        headers: req.headers,
-    });
-    if (response.redirected) {
-        res.writeHead(302, { Location: response.url });
+    if (session.role != 'admin' && session.role != 'manager') {
+        res.writeHead(302, { Location: '/' });
         res.end();
         return {
             props: {},
         };
     }
+
+    response = await fetch('http://localhost:3000/api/v1/accounts', {
+        method: 'GET',
+        headers: req.headers,
+    });
     const accounts = await response.json();
 
     return {
-        props: { id: session.id, role: session.role, accounts: accounts },
+        props: { role: session.role, accounts: accounts },
     };
 };
