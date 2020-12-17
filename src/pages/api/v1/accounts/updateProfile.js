@@ -1,30 +1,27 @@
-import { hash } from 'bcrypt';
-
 import { openDatabase } from '../../utils/openDatabase';
-import { hashSalt } from '../../utils/config';
 import { authentication } from '../../middlewares';
 
-const createAccountApi = async (req, res, session) => {
-    if (req.method === 'POST') {
-        if (session.role == 'admin' || session.role == 'manager') {
+const updateProfileApi = async (req, res, session) => {
+    if (req.method === 'PUT') {
+        if (session.role == 'admin' || session.role == 'manager' || req.body.id == session.id) {
             const data = req.body;
-            const hashedPassword = await hash(data.password, hashSalt);
-            
+
             try {
                 const database = await openDatabase();
                 await database.all(
-                    `insert into Accounts(username, password, role, name) values('${data.username}','${hashedPassword}','${data.role}','${data.name}')`
+                    `update Accounts set role='${data.role}',name='${data.name}' where id='${data.id}'`
                 );
 
                 res.status(200).end();
             } catch (error) {
                 res.status(500).send({ message: error.message });
             }
-        } else {
+        }
+        else {
             res.status(403).send({ message: 'No Permission!' });
         }
     } else {
         res.status(400).end();
     }
 };
-export default authentication(createAccountApi);
+export default authentication(updateProfileApi);

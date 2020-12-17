@@ -24,7 +24,6 @@ const AccountAdderForm = ({ accounts }) => {
             setIsDuplicate(false);
         }
     }, [username]);
-
     useEffect(() => {
         if (password != rePassword && rePassword != '') {
             setIsMatch(false);
@@ -172,7 +171,8 @@ const AccountAdderForm = ({ accounts }) => {
                 </div>
                 <button
                     type="submit"
-                    className="p-2 mt-8 mb-20 text-white text-lg font-bold bg-green-500 hover:bg-green-700 active:bg-green-900 focus:outline-none"
+                    className="p-2 mt-8 mb-20 text-white text-lg font-bold rounded-sm bg-green-500 hover:bg-green-700 active:bg-green-900 focus:outline-none"
+                    disable = {isDuplicate || !isMatch}
                 >
                     เพิ่มบัญชี
                 </button>

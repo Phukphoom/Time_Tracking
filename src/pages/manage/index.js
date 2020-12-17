@@ -39,13 +39,6 @@ export const getServerSideProps = async ({ req, res }) => {
         method: 'GET',
         headers: req.headers,
     });
-    if (response.redirected) {
-        res.writeHead(302, { Location: response.url });
-        res.end();
-        return {
-            props: {},
-        };
-    }
     const accounts = await response.json();
 
     return {

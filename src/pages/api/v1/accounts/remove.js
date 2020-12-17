@@ -8,7 +8,7 @@ const removeAccountApi = async (req, res, session) => {
 
             try {
                 const database = await openDatabase();
-                const deletedAccount = await database.all(`select role from Accounts where id=${data.id}`);
+                const deletedAccount = await database.all(`select role from Accounts where id='${data.id}'`);
                 const deletedRole = deletedAccount[0].role;
                 const deleterRole = session.role;
 

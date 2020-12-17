@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router';
-import Swal from 'sweetalert2';
 
 import AccountTitle from './AccountTitle';
 import AccountItem from './AccountItem';

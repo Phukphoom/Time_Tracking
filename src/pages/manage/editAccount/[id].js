@@ -1,18 +1,19 @@
-import { NavBar, PageFrame, AccountAdderForm } from '../../../components';
+import { NavBar, PageFrame, AccountEditerForm } from '../../../components';
 
-const AddAccountPage = ({ role, accounts }) => {
+const editAccountPage = ({ role, editedAccount }) => {
+    console.log({ role, editedAccount });
     return (
         <React.Fragment>
             <NavBar role={role} />
             <PageFrame>
-                <AccountAdderForm accounts={accounts} />
+                <AccountEditerForm editedAccount={editedAccount} />
             </PageFrame>
         </React.Fragment>
     );
 };
-export default AddAccountPage;
+export default editAccountPage;
 
-export const getServerSideProps = async ({ req, res }) => {
+export const getServerSideProps = async ({ req, res, query }) => {
     let response;
 
     response = await fetch('http://localhost:3000/api/v1/getSession', {
@@ -35,13 +36,14 @@ export const getServerSideProps = async ({ req, res }) => {
         };
     }
 
-    response = await fetch('http://localhost:3000/api/v1/accounts', {
+    response = await fetch(`http://localhost:3000/api/v1/accounts/${query.id}`, {
         method: 'GET',
         headers: req.headers,
     });
-    const accounts = await response.json();
+    let editedAccount = await response.json();
+    editedAccount = { ...editedAccount, id: query.id };
 
     return {
-        props: { role: session.role, accounts: accounts },
+        props: { role: session.role, editedAccount: editedAccount },
     };
 };

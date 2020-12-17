@@ -7,7 +7,7 @@ const AccountItem = ({ clientRole, id, name, role, username }) => {
     const editHandler = async (event) => {
         event.preventDefault();
 
-        router.push(`/profile/editProfile/${id}`);
+        router.push(`/manage/editAccount/${id}`);
     };
 
     const deleteHandler = async (event) => {
