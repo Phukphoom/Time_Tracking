@@ -117,7 +117,7 @@ const AccountEditerForm = ({ editedAccount }) => {
         <div className="flex flex-col justify-center items-center w-full">
             <form className="flex flex-col w-5/12" onSubmit={submitHandler}>
                 <div>
-                    <p className="flex text-4xl font-bold mt-10 mt-4">ข้อมูลพนักงาน</p>
+                    <p className="flex text-4xl font-bold mt-10 ">ข้อมูลพนักงาน</p>
                     <p className="flex text-2xl font-bold mb-4">
                         [ {editedAccount.id} : {editedAccount.username} ]
                     </p>
@@ -156,7 +156,7 @@ const AccountEditerForm = ({ editedAccount }) => {
 
                 <button
                     type="submit"
-                    className="p-2 mt-8 text-white text-lg rounded-sm font-bold bg-blue-500 hover:bg-blue-700 active:bg-blue-900 focus:outline-none"
+                    className="p-2 mt-8 text-white text-lg rounded-sm font-bold bg-green-500 hover:bg-green-700 active:bg-green-900 focus:outline-none"
                 >
                     บันทึก
                 </button>
