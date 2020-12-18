@@ -12,11 +12,20 @@ const changePasswordApi = async (req, res, session) => {
 
             try {
                 const database = await openDatabase();
-                await database.all(
-                    `update Accounts set password='${hashedPassword}' where id='${data.id}'`
-                );
+                const updatedAccount = await database.all(`select role from Accounts where id='${data.id}'`);
+                const updatedRole = updatedAccount[0].role;
+                const updaterRole = session.role;
 
-                res.status(200).end();
+                const levelRole = { admin: 3, manager: 2, employee: 1 };
+                const canUpdate = levelRole[updaterRole] > levelRole[updatedRole];
+                if (canUpdate) {
+                    await database.all(
+                        `update Accounts set password='${hashedPassword}' where id='${data.id}'`
+                    );
+                    res.status(200).end();
+                } else {
+                    res.status(403).send({ message: 'No Permission!' });
+                }
             } catch (error) {
                 res.status(500).send({ message: error.message });
             }
