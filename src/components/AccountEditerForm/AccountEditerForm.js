@@ -11,14 +11,13 @@ const AccountEditerForm = ({ editedAccount }) => {
     const submitHandler = async (event) => {
         event.preventDefault();
 
-        const id = editedAccount.id;
         const response = await fetch('/api/v1/accounts/updateProfile', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id,
+                id:editedAccount.id,
                 role,
                 name,
             }),
@@ -27,7 +26,7 @@ const AccountEditerForm = ({ editedAccount }) => {
         if (response.status == 200) {
             Swal.fire({
                 icon: 'success',
-                title: 'ดำเนินการเเก้ไข',
+                title: 'ดำเนินการบันทึก',
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,
@@ -38,7 +37,7 @@ const AccountEditerForm = ({ editedAccount }) => {
         } else {
             Swal.fire({
                 icon: 'error',
-                title: 'ไม่สามารถดำเนินการเเก้ไขได้',
+                title: 'ไม่สามารถดำเนินการบันทึกได้',
                 timer: 2000,
                 showConfirmButton: false,
                 showCancelButton: false,
@@ -48,12 +47,80 @@ const AccountEditerForm = ({ editedAccount }) => {
         }
     };
 
+    const changePasswordHandler = async (event) => {
+        event.preventDefault();
+        Swal.fire({
+            icon: 'warning',
+            text: 'กรุณากรอก รหัสผ่านใหม่ของบัญชีนี้',
+            input: 'password',
+            position: 'center',
+            inputPlaceholder: 'รหัสผ่านใหม่',
+            allowEnterKey: false,
+            focusConfirm: false,
+            showConfirmButton: true,
+            showCancelButton: true,
+            confirmButtonText: 'ยืนยัน',
+            confirmButtonColor: '#48bb78',
+            cancelButtonText: 'ยกเลิก',
+            cancelButtonColor: '#f56565',
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const password = result.value;
+                const response = await fetch('/api/v1/accounts/changePassword', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        id: editedAccount.id,
+                        password,
+                    }),
+                });
+
+                if (response.status == 200) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: `ดำเนินการเปลี่ยนรหัสผ่าน`,
+                        timer: 2000,
+                        showConfirmButton: false,
+                        showCancelButton: false,
+                        toast: true,
+                        position: 'top',
+                    }).then(() => {
+                        Swal.fire({
+                            icon: 'success',
+                            title: `เปลี่ยนรหัสผ่านบัญชี [ID : ${editedAccount.id}]`,
+                            html: `ชื่อผู้ใช้ : ${editedAccount.username} <br> รหัสผ่านใหม่ : ${password}`,
+                            position: 'center',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                        });
+                        router.push('/manage');
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'ไม่สามารถดำเนินการเปลี่ยนรหัสผ่านได้',
+                        timer: 2000,
+                        showConfirmButton: false,
+                        showCancelButton: false,
+                        toast: true,
+                        position: 'top',
+                    });
+                }
+            }
+        });
+    };
+
     return (
         <div className="flex flex-col justify-center items-center w-full">
             <form className="flex flex-col w-5/12" onSubmit={submitHandler}>
                 <div>
-                    <p className="flex text-4xl font-bold mt-10 mt-4">ข้อมูลพนักงาน</p>
-                    <p className="flex text-2xl font-bold mb-4">[ {editedAccount.id} : {editedAccount.username} ]</p>
+                    <p className="flex text-4xl font-bold mt-10 ">ข้อมูลพนักงาน</p>
+                    <p className="flex text-2xl font-bold mb-4">
+                        [ {editedAccount.id} : {editedAccount.username} ]
+                    </p>
                     <div className="flex flex-col">
                         <label className="text-lg">ชื่อ-นามสกุล</label>
                         <input
@@ -89,9 +156,16 @@ const AccountEditerForm = ({ editedAccount }) => {
 
                 <button
                     type="submit"
-                    className="p-2 mt-8 mb-20 text-white text-lg rounded-sm font-bold bg-blue-500 hover:bg-blue-700 active:bg-blue-900 focus:outline-none"
+                    className="p-2 mt-8 text-white text-lg rounded-sm font-bold bg-green-500 hover:bg-green-700 active:bg-green-900 focus:outline-none"
                 >
-                    เเก้ไข
+                    บันทึก
+                </button>
+                <button
+                    type="button"
+                    className="p-2 mt-2 mb-20 text-red-500 text-lg rounded-sm font-bold border-2 border-red-500 bg-red-white hover:bg-red-100 active:bg-red-200 focus:outline-none"
+                    onClick={changePasswordHandler}
+                >
+                    เเก้ไขรหัสผ่าน
                 </button>
             </form>
         </div>

@@ -68,10 +68,10 @@ const AccountItem = ({ clientRole, id, name, role, username }) => {
     const canManage = levelRole[clientRole] > levelRole[role];
     return (
         <div className="flex flex-row items-center w-full h-10 bg-white">
-            <div className="flex w-1/12 justify-center m-2 py-1 justify-center rounded bg-gray-200 ">{id}</div>
-            <div className="flex w-3/12 justify-center m-2 py-1 justify-center rounded bg-gray-200 ">{name}</div>
-            <div className="flex w-3/12 justify-center m-2 py-1 justify-center rounded bg-gray-200 ">{role}</div>
-            <div className="flex w-3/12 justify-center m-2 py-1 justify-center rounded bg-gray-200 ">{username}</div>
+            <div className={`flex w-1/12 justify-center m-2 py-1 justify-center rounded ${role=='admin' || role=='manager'?'bg-gray-400':'bg-gray-200'}`}>{id}</div>
+            <div className={`flex w-3/12 justify-center m-2 py-1 justify-center rounded ${role=='admin' || role=='manager'?'bg-gray-400':'bg-gray-200'}`}>{name}</div>
+            <div className={`flex w-3/12 justify-center m-2 py-1 justify-center rounded ${role=='admin' || role=='manager'?'bg-gray-400':'bg-gray-200'}`}>{role}</div>
+            <div className={`flex w-3/12 justify-center m-2 py-1 justify-center rounded ${role=='admin' || role=='manager'?'bg-gray-400':'bg-gray-200'}`}>{username}</div>
             <button
                 className={`flex w-1/12 m-2 py-1 justify-center rounded text-white bg-blue-600 ${
                     canManage ? 'hover:bg-blue-300 active:bg-blue-500 focus:outline-none' : 'cursor-not-allowed opacity-25 '

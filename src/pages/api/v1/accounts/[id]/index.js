@@ -3,7 +3,7 @@ import { authentication } from '../../../middlewares';
 
 const getAccountApi = async (req ,res ,session) => {
     if (req.method === 'GET') {
-        if (session.role == 'admin' || session.role == 'manager' || req.query.id == session.id) {
+        if (session.role == 'admin' || session.role == 'manager') {
             const query = req.query
 
             try {

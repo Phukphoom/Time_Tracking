@@ -1,10 +1,16 @@
-import { NavBar, PageFrame } from '../components';
+import { NavBar, PageFrame, ClockDisplay, ClockInButton, ClockOutButton } from '../components';
 
-const HomePage = ({ role }) => {
+const HomePage = ({ id, role }) => {
     return (
         <React.Fragment>
             <NavBar role={role} />
-            <PageFrame>Home Page</PageFrame>
+            <PageFrame>
+                <ClockDisplay />
+                <div className="flex flex-row justify-center space-x-16 mt-8">
+                    <ClockInButton userId={id} disabled={false} />
+                    <ClockOutButton userId={id} disabled={true} />
+                </div>
+            </PageFrame>
         </React.Fragment>
     );
 };
@@ -27,6 +33,6 @@ export const getServerSideProps = async ({ req, res }) => {
     const session = await response.json();
 
     return {
-        props: { role: session.role },
+        props: { id: session.id, role: session.role },
     };
 };

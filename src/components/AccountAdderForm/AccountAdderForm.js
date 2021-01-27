@@ -68,7 +68,7 @@ const AccountAdderForm = ({ accounts }) => {
                     toast: true,
                     position: 'top',
                 });
-                router.reload();
+                router.push('/manage');
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -120,7 +120,7 @@ const AccountAdderForm = ({ accounts }) => {
                 </div>
 
                 <div>
-                    <p className="flex text-4xl font-bold mt-10 mt-4">ข้อมูลบัญชี</p>
+                    <p className="flex text-4xl font-bold mt-10">ข้อมูลบัญชี</p>
                     <div className="flex flex-col">
                         <label className="text-lg">ชื่อผู้ใช้</label>
                         <input

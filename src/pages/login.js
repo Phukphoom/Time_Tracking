@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 
 const LoginPage = ({}) => {
     const router = useRouter();
-    
+
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -70,7 +70,6 @@ const LoginPage = ({}) => {
                                 required
                             />
                         </div>
-
                         <button
                             type="submit"
                             className="p-2 mt-8 text-white text-lg font-bold bg-black rounded hover:bg-gray-800 active:bg-gray-900 focus:outline-none"
